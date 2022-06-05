@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/display_bcg_start"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/currencyFlag"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="0.5dp" />
+
+        <TextView
+            android:id="@+id/currencyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15sp"
+            android:layout_toRightOf="@id/currencyFlag"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Romania"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/currencyCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="7dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Romania"
+            android:textColor="@color/nums_color"
+            android:textSize="18sp" />
+        <View
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="63dp"
+            android:background="#4DFFFFFF"
+            android:layout_width="match_parent"
+            android:layout_alignBottom="@id/currencyFlag"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
