@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout relativeLayoutIN, relativeLayoutOUT;
     String currentRate = null;
 
-    private static final int CURRENCY_LIST_IN = 1;
+    private static final int CURRENCY_LIST_IN = 122;
     private static final int CURRENCY_LIST_OUT = 1;
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
             {R.id.swapBtn, R.id.clearBtn, R.id.deleteBtn, R.id.dot, R.id.equal}};
