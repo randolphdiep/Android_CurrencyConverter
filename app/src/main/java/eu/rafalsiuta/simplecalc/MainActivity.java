@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Currency currency;
     RelativeLayout relativeLayoutIN, relativeLayoutOUT;
     String currentRate = null;
-
+    private static final int hello = 10;
     private static final int CURRENCY_LIST_IN = 0;
     private static final int CURRENCY_LIST_OUT = 1;
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
