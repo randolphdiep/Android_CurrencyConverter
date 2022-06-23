@@ -51,7 +51,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int permissionRequestStorage = 1000;
+    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int CURRENCY_LIST_IN = 0;
+    private static final int CURRENCY_LIST_OUT = 1;
+
     private Button mainBtn;
     private TextView input, output, codeInput, codeOutput, rateTxt, timeTxt;
     private List<Currency> currencyList;
@@ -61,8 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout relativeLayoutIN, relativeLayoutOUT;
     String currentRate = null;
 
-    private static final int currencyListIn = 0;
-    private static final int currencyListOut = 1;
+
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
             {R.id.swapBtn, R.id.clearBtn, R.id.deleteBtn, R.id.dot, R.id.equal}};
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                startActivityForResult(intent, currencyListIn);
+                startActivityForResult(intent, CURRENCY_LIST_IN);
 
             }
         });
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                startActivityForResult(intent, currencyListOut);
+                startActivityForResult(intent, CURRENCY_LIST_OUT);
 
             }
         });
@@ -123,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == currencyListIn && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CURRENCY_LIST_IN && resultCode == Activity.RESULT_OK) {
             currency = new Currency(data);
-            if (!checkSameCode(currencyListIn, currency)) {
+            if (!checkSameCode(CURRENCY_LIST_IN, currency)) {
                 codeInput.setText(currency.getCurrencyCode());
                 Glide.with(this).load(currency.getFlag()).into(countryFlagFrom);
             }
@@ -133,9 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if (requestCode == currencyListOut && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CURRENCY_LIST_OUT && resultCode == Activity.RESULT_OK) {
             currency = new Currency(data);
-            if (!checkSameCode(currencyListOut, currency)) {
+            if (!checkSameCode(CURRENCY_LIST_OUT, currency)) {
                 codeOutput.setText(currency.getCurrencyCode());
                 Glide.with(this).load(currency.getFlag()).into(countryFlagTo);
             }
@@ -303,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permissionRequestStorage);
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
         }
     }
 }
