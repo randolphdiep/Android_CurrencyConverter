@@ -10,8 +10,17 @@ import java.util.Date;
 
 public class Currency {
 
-    public final static String CODE = "code";
-    public final static String FLAG = "flag";
+    private final static String CODE = "code";
+    private final static String FLAG = "flag";
+
+    public static String getCODE() {
+        return CODE;
+    }
+
+    public static String getFLAG() {
+        return FLAG;
+    }
+
     public String getCurrencyCode() {
         return currencyCode;
     }
