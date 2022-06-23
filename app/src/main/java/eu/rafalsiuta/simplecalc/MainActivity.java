@@ -51,7 +51,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int permissionRequestStorage = 1000;
     private Button mainBtn;
     private TextView input, output, codeInput, codeOutput, rateTxt, timeTxt;
     private List<Currency> currencyList;
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout relativeLayoutIN, relativeLayoutOUT;
     String currentRate = null;
 
-    private static final int CURRENCY_LIST_IN = 10000;
-    private static final int CURRENCY_LIST_OUT = 1;
+    private static final int currencyListIn = 0;
+    private static final int currencyListOut = 1;
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
             {R.id.swapBtn, R.id.clearBtn, R.id.deleteBtn, R.id.dot, R.id.equal}};
 
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<History> historyList = new ArrayList<>();
 
     public static DecimalFormat nf = new DecimalFormat("###,###.#####");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,33 +78,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         requestPermission();
         currencyList = new ArrayList<>();
         historyList = CSVFuncs.loadFile(this);
-
         output = findViewById(R.id.output);
         input = findViewById(R.id.input);
-
         codeInput = findViewById(R.id.codeInput);
         codeOutput = findViewById(R.id.codeOutput);
-
         countryFlagFrom = findViewById(R.id.countryFlagFrom);
         countryFlagTo = findViewById(R.id.countryFlagTo);
-
         relativeLayoutIN = (RelativeLayout) findViewById(R.id.linear1);
         relativeLayoutOUT = (RelativeLayout) findViewById(R.id.linear2);
-
         rateTxt = findViewById(R.id.rateTxt);
         timeTxt = findViewById(R.id.timeTxt);
-
         historyBtn = findViewById(R.id.historyBtn);
         new ProgressAsyncTask().execute();
-
         input.setSelected(true);
         finderId(mainBtn, btnId, btnList);
-
         relativeLayoutIN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                startActivityForResult(intent, CURRENCY_LIST_IN);
+                startActivityForResult(intent, currencyListIn);
+
             }
         });
 
@@ -111,7 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                startActivityForResult(intent, CURRENCY_LIST_OUT);
+                startActivityForResult(intent, currencyListOut);
+
             }
         });
 
@@ -120,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 CSVFuncs.saveData(MainActivity.this, historyList);
                 startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+
             }
         });
     }
@@ -127,9 +123,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CURRENCY_LIST_IN && resultCode == Activity.RESULT_OK) {
+        if (requestCode == currencyListIn && resultCode == Activity.RESULT_OK) {
             currency = new Currency(data);
-            if (!checkSameCode(CURRENCY_LIST_IN, currency)) {
+            if (!checkSameCode(currencyListIn, currency)) {
                 codeInput.setText(currency.getCurrencyCode());
                 Glide.with(this).load(currency.getFlag()).into(countryFlagFrom);
             }
@@ -137,20 +133,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if (requestCode == CURRENCY_LIST_OUT && resultCode == Activity.RESULT_OK) {
+        if (requestCode == currencyListOut && resultCode == Activity.RESULT_OK) {
             currency = new Currency(data);
-            if (!checkSameCode(CURRENCY_LIST_OUT, currency)) {
+            if (!checkSameCode(currencyListOut, currency)) {
                 codeOutput.setText(currency.getCurrencyCode());
                 Glide.with(this).load(currency.getFlag()).into(countryFlagTo);
             }
             new ProgressAsyncTask().execute();
+
         }
     }
+
     @Override
     public void onRestart() {
         super.onRestart();
         historyList = CSVFuncs.loadFile(this);
     }
+
     public boolean checkSameCode(int status, Currency currency) {
         switch (status) {
             case 0:
@@ -188,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-
     @Override
     public void onClick(View v) {
         for (int i = 0; i < btnId.length; i++) {
@@ -234,9 +232,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
-
     private class ProgressAsyncTask extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
@@ -265,7 +260,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return desecription;
         }
-
         @Override
         protected void onPostExecute(String result) {
             String fullRate = html2text(result);
@@ -281,7 +275,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
     public static String html2text(String html) {
         html = Jsoup.parse(html).text();
         html = html.replaceAll(" Converter -- Historical", "");
@@ -295,7 +288,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fullRate = fullRate.substring(start, end);
         return fullRate;
     }
-
     public static int findWhiteSpace(String input, int position) {
         int spaceCount = 0;
         int splitPosition = -1;
@@ -309,10 +301,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return splitPosition;
     }
-
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permissionRequestStorage);
         }
     }
 }
