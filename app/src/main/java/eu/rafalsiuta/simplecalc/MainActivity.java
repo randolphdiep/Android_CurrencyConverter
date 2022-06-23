@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Currency> currencyList;
     private ImageView countryFlagFrom, countryFlagTo;
     private CircleButton historyBtn;
-    Currency currency;
-    RelativeLayout relativeLayoutIN, relativeLayoutOUT;
-    String currentRate = null;
+    private Currency currency;
+    private RelativeLayout relativeLayoutIN, relativeLayoutOUT;
+    private String currentRate = null;
 
 
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
