@@ -15,3 +15,6 @@ public class ExampleUnitTest {
         assertEquals(cccccc, 2 + 2);
     }
 }
+public class Example{
+    public int a;
+}
