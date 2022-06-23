@@ -74,7 +74,6 @@ public class Logic extends Activity {
         }
     }
 
-
     public static void onEqual(TextView input, TextView output, String currentRate, DecimalFormat numberFormat) {
         try {
             Double a = parser(input);

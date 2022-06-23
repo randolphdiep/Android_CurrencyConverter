@@ -40,6 +40,7 @@ public class Currency {
     private String currencyCode;
     private String currencyName;
     private int flag;
+
     public int getFlag() {
         return flag;
     }
@@ -56,7 +57,7 @@ public class Currency {
 
     public Currency(Intent intent) {
         this.currencyCode = intent.getStringExtra(Currency.CODE);
-        this.flag = intent.getIntExtra(Currency.FLAG,0);
+        this.flag = intent.getIntExtra(Currency.FLAG, 0);
     }
 
     public static void packageIntent(Intent intent, String code, int flag) {

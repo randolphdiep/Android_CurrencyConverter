@@ -1,4 +1,5 @@
 package eu.rafalsiuta.simplecalc;
+
 public class History {
 
     private String codeInput, codeOutput, rate, input, output, time;

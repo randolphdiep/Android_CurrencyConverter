@@ -39,6 +39,7 @@ public class HistoryActivity extends AppCompatActivity {
     private List<History> items;
     private HistoryAdapter adapter;
     private MenuItem deleteBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
