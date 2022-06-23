@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Button> btnList = new ArrayList<>();
     private List<History> historyList = new ArrayList<>();
 
-    public static DecimalFormat nf = new DecimalFormat("###,###.#####");
+    public static DecimalFormat numberFormat = new DecimalFormat("###,###.#####");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 0:
                     for (int j = 0; j < btnId[i].length; j++) {
                         if (v.getId() == btnId[i][j]) {
-                            Logic.onNumbers(v, input, nf);
+                            Logic.onNumbers(v, input, numberFormat);
                         }
                     }
                     break;
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Logic.onDecimal(v, input);
                             } else if (j == 4) {
                                 if (!"0".equals(input.getText().toString())) {
-                                    Logic.onEqual(input, output, currentRate, nf);
+                                    Logic.onEqual(input, output, currentRate, numberFormat);
                                     Date date = new Date();
                                     date = new Date(date.getTime());
                                     History newConversion = new History(codeInput.getText().toString(),
