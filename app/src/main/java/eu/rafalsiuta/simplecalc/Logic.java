@@ -17,12 +17,12 @@ import java.text.DecimalFormat;
 
 public class Logic extends Activity {
 
-    public static String newText;
-    public static String oldText = "0";
-    public static boolean hasDot = false;
-    public static int dotCount = 0;
+    private static String newText;
+    private static String oldText = "0";
+    private static boolean hasDot = false;
+    private static int dotCount = 0;
 
-    public static DecimalFormat nf;
+    private static DecimalFormat nf;
 
     public static void setTxt(TextView display, double value, DecimalFormat nf) {
         String result = String.valueOf(nf.format(value));
