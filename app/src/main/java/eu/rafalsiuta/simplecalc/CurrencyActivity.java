@@ -27,13 +27,13 @@ import java.util.List;
 
 public class CurrencyActivity extends AppCompatActivity{
 
-    RecyclerView recyclerView;
-    List<Currency> currencyList;
-    CurrencyAdapter currencyAdapter;
-    SearchView searchView;
-    MenuItem searchItem;
-    Boolean state = true;
-    Currency currency;
+    private RecyclerView recyclerView;
+    private List<Currency> currencyList;
+    private CurrencyAdapter currencyAdapter;
+    private SearchView searchView;
+    private MenuItem searchItem;
+    private Boolean state = true;
+    private Currency currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

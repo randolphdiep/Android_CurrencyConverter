@@ -21,9 +21,9 @@ import java.util.List;
 
 
 public class CurrencyAdapter extends RecyclerView.Adapter<eu.rafalsiuta.simplecalc.CurrencyAdapter.Holder> {
-    Context context;
-    List<Currency> currencyList;
-    List<Currency> currencyListCopy = new ArrayList<>();
+    private Context context;
+    private List<Currency> currencyList;
+    private List<Currency> currencyListCopy = new ArrayList<>();
     public CurrencyAdapter(Context context, List<Currency> currencyList) {
         this.context = context;
         this.currencyList = currencyList;
