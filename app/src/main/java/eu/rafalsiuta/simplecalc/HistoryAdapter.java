@@ -17,8 +17,8 @@ import java.util.List;
 
 
 public class HistoryAdapter extends RecyclerView.Adapter<eu.rafalsiuta.simplecalc.HistoryAdapter.Holder> {
-    Context context;
-    List<History> historyList;
+    private Context context;
+    private List<History> historyList;
 
     public HistoryAdapter(Context context, int history_list, List<History> historyList) {
         this.context = context;
@@ -67,7 +67,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<eu.rafalsiuta.simplecal
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView flagFrom, flagTo;
         TextView codeInput, codeOutput, input, output, time, rate;
-
 
         public Holder(@NonNull View itemView) {
             super(itemView);
