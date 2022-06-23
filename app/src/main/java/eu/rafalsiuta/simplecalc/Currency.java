@@ -10,8 +10,17 @@ import java.util.Date;
 
 public class Currency {
 
-    public final static String CODE = "code";
-    public final static String FLAG = "flag";
+    private final static String CODE = "code";
+    private final static String FLAG = "flag";
+
+    public static String getCODE() {
+        return CODE;
+    }
+
+    public static String getFLAG() {
+        return FLAG;
+    }
+
     public String getCurrencyCode() {
         return currencyCode;
     }
@@ -31,6 +40,7 @@ public class Currency {
     private String currencyCode;
     private String currencyName;
     private int flag;
+
     public int getFlag() {
         return flag;
     }
@@ -47,7 +57,7 @@ public class Currency {
 
     public Currency(Intent intent) {
         this.currencyCode = intent.getStringExtra(Currency.CODE);
-        this.flag = intent.getIntExtra(Currency.FLAG,0);
+        this.flag = intent.getIntExtra(Currency.FLAG, 0);
     }
 
     public static void packageIntent(Intent intent, String code, int flag) {

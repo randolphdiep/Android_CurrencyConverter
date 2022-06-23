@@ -21,9 +21,10 @@ import java.util.List;
 
 
 public class CurrencyAdapter extends RecyclerView.Adapter<eu.rafalsiuta.simplecalc.CurrencyAdapter.Holder> {
-    Context context;
-    List<Currency> currencyList;
-    List<Currency> currencyListCopy = new ArrayList<>();
+    private Context context;
+    private List<Currency> currencyList;
+    private List<Currency> currencyListCopy = new ArrayList<>();
+
     public CurrencyAdapter(Context context, List<Currency> currencyList) {
         this.context = context;
         this.currencyList = currencyList;
@@ -90,8 +91,8 @@ public class CurrencyAdapter extends RecyclerView.Adapter<eu.rafalsiuta.simpleca
             int idFlag = context.getResources().getIdentifier(code.toLowerCase(), "drawable", context.getPackageName());
             Intent data = new Intent();
             Currency.packageIntent(data, code, idFlag);
-            ((Activity)context).setResult(Activity.RESULT_OK, data);
-            ((Activity)context).finish();
+            ((Activity) context).setResult(Activity.RESULT_OK, data);
+            ((Activity) context).finish();
         }
     }
 }

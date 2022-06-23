@@ -43,10 +43,10 @@ public class CSVFuncs {
         return lstItems;
     }
 
-    public static void saveData(Context context ,List<History> historyList) {
+    public static void saveData(Context context, List<History> historyList) {
         try {
             CSVWriter csvWriter = new CSVWriter(new OutputStreamWriter(new FileOutputStream(context.getFilesDir().getAbsolutePath() + "/history.csv"), "UTF-8"));
-            for(History item : historyList) {
+            for (History item : historyList) {
                 String[] line = new String[]{item.getCodeInput(), item.getCodeOutput(), item.getInput(), item.getOutput(), item.getRate(), item.getTime()};
                 csvWriter.writeNext(line);
             }

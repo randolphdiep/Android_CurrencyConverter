@@ -52,29 +52,32 @@ import at.markushi.ui.CircleButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
+    private static final int CURRENCY_LIST_IN = 0;
+    private static final int CURRENCY_LIST_OUT = 1;
+
     private Button mainBtn;
     private TextView input, output, codeInput, codeOutput, rateTxt, timeTxt;
     private List<Currency> currencyList;
     private ImageView countryFlagFrom, countryFlagTo;
     private CircleButton historyBtn;
-    Currency currency;
-    RelativeLayout relativeLayoutIN, relativeLayoutOUT;
-    String currentRate = null;
-    private static final int hello = 10;
-    private static final int CURRENCY_LIST_IN = 0;
-    private static final int CURRENCY_LIST_OUT = 1;
+    private Currency currency;
+    private RelativeLayout relativeLayoutIN, relativeLayoutOUT;
+    private String currentRate = null;
+
     private final int[][] btnId = {{R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.nine, R.id.zero},                                                                   //case 2: special operator
             {R.id.swapBtn, R.id.clearBtn, R.id.deleteBtn, R.id.dot, R.id.equal}};
 
     private List<Button> btnList = new ArrayList<>();
     private List<History> historyList = new ArrayList<>();
 
-    public static DecimalFormat nf = new DecimalFormat("###,###.#####");
+    public static DecimalFormat numberFormat = new DecimalFormat("###,###.#####");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         requestPermission();
+
         currencyList = new ArrayList<>();
         historyList = CSVFuncs.loadFile(this);
 
@@ -94,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timeTxt = findViewById(R.id.timeTxt);
 
         historyBtn = findViewById(R.id.historyBtn);
-        new ProgressAsyncTask().execute();
 
+        new ProgressAsyncTask().execute();
         input.setSelected(true);
         finderId(mainBtn, btnId, btnList);
 
@@ -134,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Glide.with(this).load(currency.getFlag()).into(countryFlagFrom);
             }
             new ProgressAsyncTask().execute();
-
         }
 
         if (requestCode == CURRENCY_LIST_OUT && resultCode == Activity.RESULT_OK) {
@@ -146,11 +148,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             new ProgressAsyncTask().execute();
         }
     }
+
     @Override
     public void onRestart() {
         super.onRestart();
         historyList = CSVFuncs.loadFile(this);
     }
+
     public boolean checkSameCode(int status, Currency currency) {
         switch (status) {
             case 0:
@@ -177,14 +181,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         codeOutput.setText(temp);
     }
 
-
     private void finderId(Button btn, int[][] id, List<Button> list) {
         for (int[] idx : id) {
             for (int idy : idx) {
                 btn = findViewById(idy);
                 btn.setOnClickListener(this);
                 list.add(btn);
-
             }
         }
     }
@@ -196,8 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 0:
                     for (int j = 0; j < btnId[i].length; j++) {
                         if (v.getId() == btnId[i][j]) {
-                            Logic.onNumbers(v, input, nf);
-
+                            Logic.onNumbers(v, input, numberFormat);
                         }
                     }
                     break;
@@ -215,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Logic.onDecimal(v, input);
                             } else if (j == 4) {
                                 if (!"0".equals(input.getText().toString())) {
-                                    Logic.onEqual(input, output, currentRate, nf);
+                                    Logic.onEqual(input, output, currentRate, numberFormat);
                                     Date date = new Date();
                                     date = new Date(date.getTime());
                                     History newConversion = new History(codeInput.getText().toString(),
@@ -231,17 +232,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
             }
-
         }
-
     }
-
-
 
     private class ProgressAsyncTask extends AsyncTask<Void, Integer, String> {
         @Override
         protected String doInBackground(Void... voids) {
-
             String codeIn = codeInput.getText().toString().toLowerCase();
             String codeOut = codeOutput.getText().toString().toLowerCase();
             String desecription = null;
@@ -279,7 +275,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             currentRate = getRate(fullRate);
             output.setText("0");
             output.setTextSize(28.0F);
-
         }
     }
 

@@ -17,15 +17,15 @@ import java.text.DecimalFormat;
 
 public class Logic extends Activity {
 
-    public static String newText;
-    public static String oldText = "0";
-    public static boolean hasDot = false;
-    public static int dotCount = 0;
+    private static String newText;
+    private static String oldText = "0";
+    private static boolean hasDot = false;
+    private static int dotCount = 0;
 
-    public static DecimalFormat nf;
+    private static DecimalFormat numberFormat;
 
-    public static void setTxt(TextView display, double value, DecimalFormat nf) {
-        String result = String.valueOf(nf.format(value));
+    public static void setTxt(TextView display, double value, DecimalFormat numberFormat) {
+        String result = String.valueOf(numberFormat.format(value));
         if (result.length() >= 19)
             display.setTextSize(22.0F);
         else
@@ -37,7 +37,7 @@ public class Logic extends Activity {
         return Double.parseDouble(display.getText().toString().replaceAll(",", ""));
     }
 
-    public static void onNumbers(View v, TextView display, DecimalFormat nf) {
+    public static void onNumbers(View v, TextView display, DecimalFormat numberFormat) {
         newText = ((Button) v).getText().toString();
         oldText = display.getText().toString();
         try {
@@ -45,15 +45,15 @@ public class Logic extends Activity {
                 oldText = display.getText().toString();
             else {
                 if ("0".equals(oldText)) {
-                    setTxt(display, Double.parseDouble(newText), nf);
+                    setTxt(display, Double.parseDouble(newText), numberFormat);
                 } else {
                     if (hasDot) {
                         if (dotCount != 2 && !"0".equals(newText)) {
                             dotCount++;
-                            setTxt(display, Double.parseDouble(oldText.replaceAll(",", "") + newText), nf);
+                            setTxt(display, Double.parseDouble(oldText.replaceAll(",", "") + newText), numberFormat);
                         }
                     } else
-                        setTxt(display, Double.parseDouble(oldText.replaceAll(",", "") + newText), nf);
+                        setTxt(display, Double.parseDouble(oldText.replaceAll(",", "") + newText), numberFormat);
                 }
             }
 
@@ -72,16 +72,14 @@ public class Logic extends Activity {
             display.setText((oldText + newText));
             hasDot = true;
         }
-
     }
 
-
-    public static void onEqual(TextView input, TextView output, String currentRate, DecimalFormat nf) {
+    public static void onEqual(TextView input, TextView output, String currentRate, DecimalFormat numberFormat) {
         try {
             Double a = parser(input);
             Double b = Double.parseDouble(currentRate.replaceAll(",", "."));
             Double result = a * b;
-            setTxt(output, result, nf);
+            setTxt(output, result, numberFormat);
         } catch (Exception ex) {
             output.setText("0");
             output.setTextSize(28.0F);
@@ -106,7 +104,6 @@ public class Logic extends Activity {
     }
 
     public static void onDelete(TextView display, TextView output) {
-
         try {
             int start = 0;
             int end = display.getText().toString().length() - 1;
@@ -130,7 +127,5 @@ public class Logic extends Activity {
         } catch (Exception ex) {
             display.setText("0");
         }
-
     }
-
 }

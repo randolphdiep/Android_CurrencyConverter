@@ -35,10 +35,11 @@ import java.util.Date;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    List<History> items;
-    HistoryAdapter adapter;
-    MenuItem deleteBtn;
+    private RecyclerView recyclerView;
+    private List<History> items;
+    private HistoryAdapter adapter;
+    private MenuItem deleteBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
